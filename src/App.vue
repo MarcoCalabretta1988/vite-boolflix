@@ -54,9 +54,11 @@ export default {
       const transformVote = Math.ceil(Math.ceil(vote) / 2);
       let starVote = ``
       for (let i = 0; i < 5; i++) {
-        if (i < transformVote) starVote += `&#9734;`
-        else starVote += '-'
+        if (i < transformVote) starVote += `&#9733;`
+        else starVote += `&#9734;`
       }
+
+      console.log(starVote)
       return starVote
     }
   }
@@ -77,7 +79,7 @@ export default {
     </div>
 
     <!-- LISTA FILM -->
-    <h1 class="text-center text-white">FILM: </h1>
+    <h1 class="text-center text-white">FILM:<font-awesome-icon icon="fa-solid fa-star" /> </h1>
     <ul class="list-group my-3 text-center" v-for="movie in store.movies" @key="movies.id">
       <li class="list-group-item"><img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title"
           class="img-fluid"></li>
@@ -86,7 +88,7 @@ export default {
       <li class="list-group-item">Lingua: <img :src="buildLocalImagePatch(movie.original_language)" :alt="movie.title"
           class="img-fluid">
       </li>
-      <li class="list-group-item">Voto: {{ transformVoteToStar(movie.vote_average) }}</li>
+      <li class="list-group-item" v-html="transformVoteToStar(movie.vote_average)"></li>
       <li class="list-group-item">Trama: {{ movie.overview }}</li>
     </ul>
 
@@ -100,7 +102,7 @@ export default {
       <li class="list-group-item">Lingua: <img :src="buildLocalImagePatch(serie.original_language)" :alt="serie.name"
           class="img-fluid">
       </li>
-      <li class="list-group-item">Voto: {{ serie.vote_average }}</li>
+      <li class="list-group-item" v-html="transformVoteToStar(serie.vote_average)"></li>
       <li class="list-group-item">Trama: {{ serie.overview }}</li>
     </ul>
 
