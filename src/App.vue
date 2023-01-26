@@ -57,8 +57,6 @@ export default {
         if (i < transformVote) starVote += `&#9733;`
         else starVote += `&#9734;`
       }
-
-      console.log(starVote)
       return starVote
     }
   }
@@ -79,10 +77,13 @@ export default {
     </div>
 
     <!-- LISTA FILM -->
-    <h1 class="text-center text-white">FILM:<font-awesome-icon icon="fa-solid fa-star" /> </h1>
+    <h1 class="text-center text-white">FILM:</h1>
     <ul class="list-group my-3 text-center" v-for="movie in store.movies" @key="movies.id">
-      <li class="list-group-item"><img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title"
-          class="img-fluid"></li>
+      <li class="list-group-item">
+        <img v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title"
+          class="img-fluid">
+        <img v-else :src="buildLocalImagePatch('noimg')" :alt="movie.title" class="img-fluid">
+      </li>
       <li class="list-group-item">Titolo: {{ movie.title }}</li>
       <li class="list-group-item">Titolo Originale: {{ movie.original_title }}</li>
       <li class="list-group-item">Lingua: <img :src="buildLocalImagePatch(movie.original_language)" :alt="movie.title"
