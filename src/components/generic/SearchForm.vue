@@ -7,6 +7,11 @@ export default {
         }
     },
     emits: ['term-change'],
+    methods: {
+        resetForm() {
+            this.searchTerm = ''
+        }
+    },
     props: {
         placeholder: String,
         type: String,
@@ -21,8 +26,8 @@ export default {
     <!-- INPUT FORM -->
     <div class="input-group">
         <input :type="type" class="form-control" :placeholder="placeholder" v-model="searchTerm"
-            @keyup.enter="$emit('term-change', searchTerm)">
+            @keyup.enter="$emit('term-change', searchTerm), resetForm()">
         <button class="btn btn-outline-danger" type="button" id="button-addon2"
-            @click="$emit('term-change', searchTerm)">{{ btnText }}</button>
+            @click="$emit('term-change', searchTerm), resetForm()">{{ btnText }}</button>
     </div>
 </template>
