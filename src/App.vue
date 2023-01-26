@@ -50,6 +50,15 @@ export default {
       const url = new URL(`./assets/img/${data}.png`, import.meta.url)
       return url.href
     },
+    transformVoteToStar(vote) {
+      const transformVote = Math.ceil(Math.ceil(vote) / 2);
+      let starVote = ``
+      for (let i = 0; i < 5; i++) {
+        if (i < transformVote) starVote += `&#9734;`
+        else starVote += '-'
+      }
+      return starVote
+    }
   }
 
 }
@@ -57,6 +66,7 @@ export default {
 
 <template>
   <div class="container m-5 bg-dark p-5">
+
 
     <!-- INPUT DI RICERCA -->
     <div class="input-group mb-3">
@@ -67,7 +77,7 @@ export default {
     </div>
 
     <!-- LISTA FILM -->
-    <h1 class="text-center text-white">FILM:</h1>
+    <h1 class="text-center text-white">FILM: </h1>
     <ul class="list-group my-3 text-center" v-for="movie in store.movies" @key="movies.id">
       <li class="list-group-item"><img :src="`https://image.tmdb.org/t/p/w342${movie.poster_path}`" :alt="movie.title"
           class="img-fluid"></li>
@@ -76,7 +86,7 @@ export default {
       <li class="list-group-item">Lingua: <img :src="buildLocalImagePatch(movie.original_language)" :alt="movie.title"
           class="img-fluid">
       </li>
-      <li class="list-group-item">Voto: {{ movie.vote_average }}</li>
+      <li class="list-group-item">Voto: {{ transformVoteToStar(movie.vote_average) }}</li>
       <li class="list-group-item">Trama: {{ movie.overview }}</li>
     </ul>
 
