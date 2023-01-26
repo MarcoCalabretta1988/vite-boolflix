@@ -2,14 +2,15 @@
 import axios from 'axios';
 import { store } from './data/store'
 import { apiUri, apiKey } from './data'
+
+import Loader from './components/generic/Loader.vue';
+import AppHeader from './components/AppHeader.vue';
 export default {
   name: 'Boolflix',
   data() {
-    return {
-      store,
-      searchTerm: ''
-    }
+    return { store }
   },
+  components: { AppHeader, Loader },
   methods: {
     fetchMovies(query) {
       store.isLoading = true;
@@ -20,9 +21,7 @@ export default {
           query,
           language: 'it'
         }
-
       }
-
       axios.get(`${apiUri}/search/movie`, config)
         .then(res => { store.movies = res.data.results; })
         .catch(error => { console.log(error) })
@@ -58,6 +57,10 @@ export default {
         else starVote += `&#9734;`
       }
       return starVote
+    },
+    onTermChange(term) {
+      this.fetchMovies(term)
+      this.fetchTvSeries(term)
     }
   }
 
@@ -65,17 +68,10 @@ export default {
 </script>
 
 <template>
+  <loader v-if="!store.IsLoading"></loader>
+  <app-header @term-change="onTermChange"></app-header>
+
   <div class="container m-5 bg-dark p-5">
-
-
-    <!-- INPUT DI RICERCA -->
-    <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Cerca film o serie" v-model="searchTerm"
-        @keyup.enter="fetchMovies(searchTerm), fetchTvSeries(searchTerm)">
-      <button class="btn btn-outline-danger" type="button" id="button-addon2"
-        @click="fetchMovies(searchTerm), fetchTvSeries(searchTerm)">Cerca</button>
-    </div>
-
     <!-- LISTA FILM -->
     <h1 class="text-center text-white">FILM:</h1>
     <ul class="list-group my-3 text-center" v-for="movie in store.movies" @key="movies.id">
@@ -112,12 +108,5 @@ export default {
 </template>
 
 <style lang="scss">
-ul {
-  li {
-    img {
-      width: 100px;
-      height: auto;
-    }
-  }
-}
+@use './assets/scss/style.scss'
 </style>
