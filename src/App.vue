@@ -28,6 +28,11 @@ export default {
         .catch(error => { console.log(error) })
         .then(() => { store.isLoading = false; });
     },
+    buildImagePatch(data) {
+      const url = new URL(`./assets/img/${data}.png`, import.meta.url)
+      console.log(url.href)
+      return url.href
+    }
   }
 
 }
@@ -46,7 +51,9 @@ export default {
     <ul class="list-group my-3 text-center" v-for="movie in store.movies" @key="movies.id">
       <li class="list-group-item">Titolo: {{ movie.title }}</li>
       <li class="list-group-item">Titolo Originale: {{ movie.original_title }}</li>
-      <li class="list-group-item">Lingua: {{ movie.original_language }}</li>
+      <li class="list-group-item">Lingua: <img :src="buildImagePatch(movie.original_language)" :alt="movie.title"
+          class="img-fluid">
+      </li>
       <li class="list-group-item">Voto: {{ movie.vote_average }}</li>
       <li class="list-group-item">Trama: {{ movie.overview }}</li>
     </ul>
@@ -54,5 +61,12 @@ export default {
 </template>
 
 <style lang="scss">
-
+ul {
+  li {
+    img {
+      width: 100px;
+      height: auto;
+    }
+  }
+}
 </style>
