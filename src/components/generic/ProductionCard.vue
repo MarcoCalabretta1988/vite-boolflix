@@ -47,12 +47,11 @@ export default {
 
             <li class="list-group-item">Titolo: {{ item.title || item.name }}</li>
             <li class="list-group-item">Titolo Originale: {{ item.original_title }}</li>
-            <li class="list-group-item flag">Lingua:
-
+            <li class="list-group-item flag">
                 <img v-if="hasFlag" :src="buildLocalImagePatch" :alt="item.title" class="img-fluid">
                 <div v-else>{{ item.original_language }}</div>
             </li>
-            <li class="list-group-item" v-html="transformVoteToStar(item.vote_average)"></li>
+            <li class="list-group-item avarage" v-html="transformVoteToStar(item.vote_average)"></li>
             <li class="list-group-item overview">Trama: {{ item.overview }}</li>
         </ul>
     </div>
@@ -115,6 +114,10 @@ ul {
 
             height: 100%;
             overflow: auto;
+        }
+
+        &.avarage {
+            font-size: 25px;
         }
     }
 }
