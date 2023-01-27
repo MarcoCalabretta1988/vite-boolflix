@@ -31,26 +31,48 @@ export default {
 </script>
 
 <template>
-    <img :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title" class="img-fluid">
-    <ul class="list-group text-center item-info">
+    <div class="card">
 
-        <li class="list-group-item">Titolo: {{ item.title || item.name }}</li>
-        <li class="list-group-item">Titolo Originale: {{ item.original_title }}</li>
-        <li class="list-group-item flag">Lingua:
+        <img :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title" class="img-fluid poster">
 
-            <img v-if="hasFlag" :src="buildLocalImagePatch" :alt="item.title" class="img-fluid">
-            <div v-else>{{ item.original_language }}</div>
-        </li>
-        <li class="list-group-item" v-html="transformVoteToStar(item.vote_average)"></li>
-        <li class="list-group-item overview">Trama: {{ item.overview }}</li>
-    </ul>
+        <ul class="list-group text-center item-info">
 
+            <li class="list-group-item">Titolo: {{ item.title || item.name }}</li>
+            <li class="list-group-item">Titolo Originale: {{ item.original_title }}</li>
+            <li class="list-group-item flag">Lingua:
+
+                <img v-if="hasFlag" :src="buildLocalImagePatch" :alt="item.title" class="img-fluid">
+                <div v-else>{{ item.original_language }}</div>
+            </li>
+            <li class="list-group-item" v-html="transformVoteToStar(item.vote_average)"></li>
+            <li class="list-group-item overview">Trama: {{ item.overview }}</li>
+        </ul>
+    </div>
 
 </template>
 
 <style lang="scss" scoped>
-ul {
+.card {
+    position: relative;
     height: 600px;
+    background-color: black;
+
+    &:hover .poster {
+        display: none;
+    }
+}
+
+.poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 100%;
+}
+
+ul {
+
+    height: 100%;
 
     li {
         background-color: black;
