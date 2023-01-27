@@ -1,17 +1,8 @@
 <script>
 export default {
     name: 'SearchForm',
-    data() {
-        return {
-            searchTerm: ''
-        }
-    },
-    emits: ['term-change'],
-    methods: {
-        resetForm() {
-            this.searchTerm = ''
-        }
-    },
+    data: () => ({ searchTerm: '' }),
+    emits: ['term-change', 'form-submit'],
     props: {
         placeholder: String,
         type: String,
@@ -24,10 +15,12 @@ export default {
 
 <template>
     <!-- INPUT FORM -->
-    <div class="input-group">
-        <input :type="type" class="form-control" :placeholder="placeholder" v-model="searchTerm"
-            @keyup.enter="$emit('term-change', searchTerm), resetForm()">
-        <button class="btn btn-outline-danger" type="button" id="button-addon2"
-            @click="$emit('term-change', searchTerm), resetForm()">{{ btnText }}</button>
-    </div>
+    <form @submit.prevent="$emit('form-submit')">
+
+        <div class="input-group">
+            <input :type="type" class="form-control" :placeholder="placeholder || 'Cerca'" v-model.trim="searchTerm"
+                @keyup="$emit('term-change', searchTerm)">
+            <button class="btn btn-outline-danger" type="button" id="button-addon2">{{ btnText }}</button>
+        </div>
+    </form>
 </template>

@@ -3,7 +3,7 @@ import SearchForm from './generic/SearchForm.vue';
 
 export default {
     name: 'AppHeader',
-    emits: ['term-change'],
+    emits: ['term-change', 'form-submit'],
     components: { SearchForm },
 }
 </script>
@@ -15,8 +15,8 @@ export default {
             <div id="logo">BOOLFLIX</div>
 
             <div class="search-bar">
-                <search-form @term-change="$emit('term-change', $event)" placeholder="Cerca Film o Serie" type="text"
-                    btn-text="Cerca"></search-form>
+                <search-form @term-change="$emit('term-change', $event)" @form-submit="$emit('form-submit')"
+                    placeholder="Cerca Film o Serie" type="text" btn-text="Cerca"></search-form>
             </div>
         </div>
     </header>

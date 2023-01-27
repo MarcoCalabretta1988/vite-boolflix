@@ -1,7 +1,7 @@
 <script>
 import axios from 'axios';
 import { store } from './data/store'
-import { apiUri, apiKey } from './data'
+import { apiUri, api_key } from './data'
 
 import Loader from './components/generic/Loader.vue';
 import AppHeader from './components/AppHeader.vue';
@@ -9,49 +9,35 @@ import AppMain from './components/AppMain.vue';
 
 export default {
   name: 'Boolflix',
-  data() {
-    return {
-      store,
-      searchTerm: ''
+  data: () => ({ store, searchTerm: '', isStartSearch: false }),
+  components: { AppHeader, Loader, AppMain },
+  computed: {
+    axiosConfig() {
+      return {
+        params: {
+          api_key,
+          query: this.searchTerm,
+          language: 'it'
+        }
+      }
     }
   },
-  components: { AppHeader, Loader, AppMain },
   methods: {
-    fetchMovies(query) {
+    fetchApi(endpoint, collection) {
       store.isLoading = true;
-
-      const config = {
-        params: {
-          api_key: apiKey,
-          query,
-          language: 'it'
-        }
-      }
-      axios.get(`${apiUri}/search/movie`, config)
-        .then(res => { store.movies = res.data.results; })
+      axios.get(`${apiUri}/${endpoint}`, this.axiosConfig)
+        .then(res => { store[collection] = res.data.results; })
         .catch(error => { console.log(error) })
-        .then(() => { store.isLoading = false; });
-    },
-    fetchTvSeries(query) {
-      store.isLoading = true;
-      const config = {
-        params: {
-          api_key: apiKey,
-          query,
-          language: 'it'
-        }
-
-      }
-
-      axios.get(`${apiUri}/search/tv`, config)
-        .then(res => { store.tvSeries = res.data.results; })
-        .catch(error => { console.log(error) })
-        .then(() => { store.isLoading = false; });
+        .then(() => { store.isLoading = false });
     },
     onTermChange(term) {
       this.searchTerm = term
-      this.fetchMovies(term)
-      this.fetchTvSeries(term)
+
+    },
+    updateTitle() {
+      this.isStartSearch = true
+      this.fetchApi('search/movie', 'movies')
+      this.fetchApi('search/tv', 'tvSeries')
     }
 
   }
@@ -60,10 +46,11 @@ export default {
 </script>
 
 <template>
-  <loader v-if="store.IsLoading"></loader>
+
+  <loader v-if="store.isLoading"></loader>
   <div v-else>
-    <app-header @term-change="onTermChange"></app-header>
-    <app-main :search-term="searchTerm"></app-main>
+    <app-header @term-change="onTermChange" @form-submit="updateTitle"></app-header>
+    <app-main :search-term="searchTerm" :is-search="isStartSearch"></app-main>
   </div>
 
 </template>
