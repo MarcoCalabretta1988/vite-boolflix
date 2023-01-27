@@ -48,6 +48,7 @@ export default {
 <template>
 
   <loader v-if="store.isLoading"></loader>
+
   <div v-else>
     <app-header @term-change="onTermChange" @form-submit="updateTitle"></app-header>
     <app-main :search-term="searchTerm" :is-search="isStartSearch"></app-main>

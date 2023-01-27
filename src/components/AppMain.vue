@@ -18,6 +18,13 @@ export default {
         <div v-if="!isSearch">
             <h1 class="text-white text-center m-5 p-5">Digita cosa cercare</h1>
         </div>
+        <div v-else-if="store.movies.length === 0 && store.tvSeries.length === 0"
+            class="text-white text-center m-5 p-5">
+            <h1 class="text-white text-center m-5 p-5">
+                <font-awesome-icon icon="fa-solid fa-face-sad-tear" /> nessun
+                risultato
+            </h1>
+        </div>
         <div v-else>
 
             <!-- FILM SECTION -->
