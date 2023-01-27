@@ -32,8 +32,16 @@ export default {
 
 <template>
     <div class="card">
+        <div class="poster">
 
-        <img :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title" class="img-fluid poster">
+            <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title"
+                class="img-fluid">
+            <div v-else class="text-center noimg">
+                <div class="show-name m-2">{{ item.title || item.name }}</div>
+                <img src="../../assets/img/noimg.png" :alt="item.title" class="img-fluid my-3">
+            </div>
+
+        </div>
 
         <ul class="list-group text-center item-info">
 
@@ -57,8 +65,21 @@ export default {
     height: 500px;
     background-color: black;
 
+    img {
+        height: 100%;
+    }
+
     &:hover .poster {
         display: none;
+    }
+
+    .show-name {
+        background-color: white;
+        font-size: 20px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 
@@ -68,6 +89,10 @@ export default {
     left: 0;
     z-index: 1;
     height: 100%;
+
+    .noimg {
+        background-color: black;
+    }
 }
 
 ul {
