@@ -54,7 +54,7 @@ export default {
 <style lang="scss" scoped>
 .card {
     position: relative;
-    height: 600px;
+    height: 500px;
     background-color: black;
 
     &:hover .poster {

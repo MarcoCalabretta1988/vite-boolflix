@@ -16,7 +16,7 @@ export default {
 <template>
     <main class="bg-dark p-5">
         <div v-if="!isSearch">
-            <h1 class="text-white text-center">Digita cosa cercare</h1>
+            <h1 class="text-white text-center m-5 p-5">Digita cosa cercare</h1>
         </div>
         <div v-else>
 
