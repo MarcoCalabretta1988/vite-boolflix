@@ -8,6 +8,10 @@ export default {
             const url = new URL(`../../assets/img/${this.item.original_language}.png`, import.meta.url)
             return url.href
         },
+        hasFlag() {
+            const flags = ['it', 'en', 'de', 'es', 'fr', 'ja', 'ko', 'ru', 'us', 'za'];
+            return flags.includes(this.item.original_language);
+        }
 
     },
     methods: {
@@ -32,7 +36,10 @@ export default {
 
         <li class="list-group-item">Titolo: {{ item.title || item.name }}</li>
         <li class="list-group-item">Titolo Originale: {{ item.original_title }}</li>
-        <li class="list-group-item flag">Lingua: <img :src="buildLocalImagePatch" :alt="item.title" class="img-fluid">
+        <li class="list-group-item flag">Lingua:
+
+            <img v-if="hasFlag" :src="buildLocalImagePatch" :alt="item.title" class="img-fluid">
+            <div v-else>{{ item.original_language }}</div>
         </li>
         <li class="list-group-item" v-html="transformVoteToStar(item.vote_average)"></li>
         <li class="list-group-item overview">Trama: {{ item.overview }}</li>
