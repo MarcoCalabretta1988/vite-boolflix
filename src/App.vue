@@ -9,7 +9,7 @@ import AppMain from './components/AppMain.vue';
 
 export default {
   name: 'Boolflix',
-  data: () => ({ store, searchTerm: '', isStartSearch: false }),
+  data: () => ({ store, searchTerm: '', isStartSearch: false, actualChoise: '' }),
   components: { AppHeader, Loader, AppMain },
   computed: {
     axiosConfig() {
@@ -31,8 +31,12 @@ export default {
         .then(() => { store.isLoading = false });
     },
     onTermChange(term) {
-      this.searchTerm = term
+      this.searchTerm = term;
 
+    },
+    onChoiseChange(value) {
+
+      this.actualChoise = value ? value : 0;
     },
     updateTitle() {
       this.isStartSearch = true
@@ -54,8 +58,8 @@ export default {
   <loader v-if="store.isLoading"></loader>
 
   <div v-else>
-    <app-header @term-change="onTermChange" @form-submit="updateTitle"></app-header>
-    <app-main :search-term="searchTerm" :is-search="isStartSearch"></app-main>
+    <app-header @term-change="onTermChange" @form-submit="updateTitle" @choise-change="onChoiseChange"></app-header>
+    <app-main :search-term="searchTerm" :is-search="isStartSearch" :genre-choise="actualChoise"></app-main>
   </div>
 
 </template>

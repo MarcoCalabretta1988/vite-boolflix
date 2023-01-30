@@ -9,7 +9,8 @@ export default {
     data: () => ({ store }),
     props: {
         searchTerm: String,
-        isSearch: Boolean
+        isSearch: Boolean,
+        genreChoise: Number
     },
 }
 </script>
@@ -29,10 +30,10 @@ export default {
         <div v-else>
 
             <!-- FILM SECTION -->
-            <production-section title="FILM" collection="movies"></production-section>
+            <production-section title="FILM" collection="movies" :genre="genreChoise"></production-section>
 
             <!-- SERIES SECTION -->
-            <production-section title="SERIE" collection="tvSeries"></production-section>
+            <production-section title="SERIE" collection="tvSeries" :genre="genreChoise"></production-section>
 
         </div>
     </main>

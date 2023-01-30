@@ -17,7 +17,8 @@ export default {
             <div id="logo">BOOLFLIX</div>
 
             <div class="search-bar d-flex align-items-center">
-                <select-form :options-list="store.generes" default-text="Genere" class="mx-2 w-50"></select-form>
+                <select-form @choise-change="$emit('choise-change', $event)" :options-list="store.generes"
+                    default-text="Tutti" class="mx-2 w-50"></select-form>
                 <search-form @term-change="$emit('term-change', $event)" @form-submit="$emit('form-submit')"
                     placeholder="Cerca Film o Serie" type="text" btn-text="Cerca" class="flex-grow-1"></search-form>
             </div>

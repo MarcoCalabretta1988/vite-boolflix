@@ -2,7 +2,7 @@
 
 export default {
     name: 'ProductionCard',
-    props: { item: Object },
+    props: { item: Object, genre: Number },
     computed: {
         buildLocalImagePatch() {
             const url = new URL(`../../assets/img/${this.item.original_language}.png`, import.meta.url)
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <template>
-    <div class="card">
+    <div v-if="item.genre_ids.includes(genre) || !genre" class="card">
         <div class="poster">
 
             <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title"
