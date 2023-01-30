@@ -35,13 +35,13 @@ export default {
 
     },
     onChoiseChange(value) {
-
       this.actualChoise = value ? value : 0;
     },
     updateTitle() {
-      this.isStartSearch = true
-      this.fetchApi('search/movie', 'movies', 'results')
-      this.fetchApi('search/tv', 'tvSeries', 'results')
+      this.isStartSearch = true;
+      this.actualChoise = 0;
+      this.fetchApi('search/movie', 'movies', 'results');
+      this.fetchApi('search/tv', 'tvSeries', 'results');
     }
 
   },
