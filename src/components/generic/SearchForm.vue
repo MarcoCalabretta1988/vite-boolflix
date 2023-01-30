@@ -24,3 +24,9 @@ export default {
         </div>
     </form>
 </template>
+
+<style scoped lang="scss">
+input {
+    width: 100px;
+}
+</style>

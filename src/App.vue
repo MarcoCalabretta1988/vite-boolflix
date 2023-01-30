@@ -17,16 +17,16 @@ export default {
         params: {
           api_key,
           query: this.searchTerm,
-          language: 'it'
+          language: ''
         }
       }
     }
   },
   methods: {
-    fetchApi(endpoint, collection) {
+    fetchApi(endpoint, collection, key) {
       store.isLoading = true;
       axios.get(`${apiUri}/${endpoint}`, this.axiosConfig)
-        .then(res => { store[collection] = res.data.results; })
+        .then(res => { store[collection] = res.data[key]; })
         .catch(error => { console.log(error) })
         .then(() => { store.isLoading = false });
     },
@@ -36,10 +36,14 @@ export default {
     },
     updateTitle() {
       this.isStartSearch = true
-      this.fetchApi('search/movie', 'movies')
-      this.fetchApi('search/tv', 'tvSeries')
+      this.fetchApi('search/movie', 'movies', 'results')
+      this.fetchApi('search/tv', 'tvSeries', 'results')
+
     }
 
+  },
+  created() {
+    this.fetchApi('genre/movie/list', 'generes', 'genres')
   }
 
 }

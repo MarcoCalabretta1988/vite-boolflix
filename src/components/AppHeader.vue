@@ -1,10 +1,12 @@
 <script>
 import SearchForm from './generic/SearchForm.vue';
-
+import SelectForm from './generic/SelectForm.vue';
+import { store } from '../data/store';
 export default {
     name: 'AppHeader',
     emits: ['term-change', 'form-submit'],
-    components: { SearchForm },
+    data: () => ({ store }),
+    components: { SearchForm, SelectForm },
 }
 </script>
 
@@ -14,9 +16,10 @@ export default {
 
             <div id="logo">BOOLFLIX</div>
 
-            <div class="search-bar">
+            <div class="search-bar d-flex align-items-center">
+                <select-form :options-list="store.generes" default-text="Genere" class="mx-2 w-50"></select-form>
                 <search-form @term-change="$emit('term-change', $event)" @form-submit="$emit('form-submit')"
-                    placeholder="Cerca Film o Serie" type="text" btn-text="Cerca"></search-form>
+                    placeholder="Cerca Film o Serie" type="text" btn-text="Cerca" class="flex-grow-1"></search-form>
             </div>
         </div>
     </header>
@@ -33,5 +36,6 @@ header {
         font-weight: bolder;
         cursor: pointer;
     }
+
 }
 </style>
