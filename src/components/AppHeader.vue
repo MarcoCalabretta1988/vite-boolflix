@@ -4,7 +4,7 @@ import SelectForm from './generic/SelectForm.vue';
 import { store } from '../data/store';
 export default {
     name: 'AppHeader',
-    emits: ['term-change', 'form-submit'],
+    emits: ['term-change', 'form-submit', 'choise-change'],
     data: () => ({ store }),
     components: { SearchForm, SelectForm },
 }

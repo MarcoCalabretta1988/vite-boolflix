@@ -9,7 +9,7 @@ import AppMain from './components/AppMain.vue';
 
 export default {
   name: 'Boolflix',
-  data: () => ({ store, searchTerm: '', isStartSearch: false, actualChoise: '' }),
+  data: () => ({ store, searchTerm: '', isStartSearch: false, actualChoise: 0 }),
   components: { AppHeader, Loader, AppMain },
   computed: {
     axiosConfig() {
@@ -42,7 +42,6 @@ export default {
       this.isStartSearch = true
       this.fetchApi('search/movie', 'movies', 'results')
       this.fetchApi('search/tv', 'tvSeries', 'results')
-
     }
 
   },

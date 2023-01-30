@@ -1,7 +1,9 @@
 <script>
-
+import axios from 'axios';
+import { apiUri, api_key } from '../../data/index'
 export default {
     name: 'ProductionCard',
+    data: () => ({ cast: [] }),
     props: { item: Object, genre: Number },
     computed: {
         buildLocalImagePatch() {
@@ -25,6 +27,16 @@ export default {
             }
             return starVote
         },
+        getFiveMemberCast() {
+            axios.get(`${apiUri}//movie/${this.item.id}/credits?api_key=${api_key}`)
+                .then(res => {
+                    const castNames = res.data.cast.map((actor) => actor.name)
+                    this.cast = castNames.filter((actor, i) => i < 5 ? true : false)
+                })
+        }
+    },
+    created() {
+        this.getFiveMemberCast();
     }
 
 }
@@ -52,7 +64,17 @@ export default {
                 <div v-else>{{ item.original_language }}</div>
             </li>
             <li class="list-group-item avarage" v-html="transformVoteToStar(item.vote_average)"></li>
-            <li class="list-group-item overview">Trama: {{ item.overview }}</li>
+            <li class="list-group-item " id="cast">
+                <h5>CAST</h5>
+                <ul class="text-center p-0">
+                    <li class="d-inline" v-for="actor in cast" :key="actor"> {{ actor + ' ,'}} </li>
+                </ul>
+            </li>
+            <li class="list-group-item overview">Trama:
+                <div>
+                    {{ item.overview }}
+                </div>
+            </li>
         </ul>
     </div>
 
@@ -63,6 +85,7 @@ export default {
     position: relative;
     height: 500px;
     background-color: black;
+    overflow: auto;
 
     img {
         height: 100%;
@@ -98,16 +121,17 @@ export default {
 ul {
 
     height: 100%;
+    font-size: 15px;
 
     li {
         background-color: black;
         color: white;
-
+        list-style-type: none;
 
         &.flag {
             img {
                 width: auto;
-                height: 80px;
+                height: 50px;
             }
         }
 

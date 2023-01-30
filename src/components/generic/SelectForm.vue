@@ -2,11 +2,7 @@
 
 export default {
     name: 'Select Form',
-    data() {
-        return {
-            selectChoise: ''
-        }
-    },
+    data: () => ({ selectChoise: '' }),
 
     props: {
         optionsList: Array,
