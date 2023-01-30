@@ -121,7 +121,7 @@ export default {
 ul {
 
     height: 100%;
-    font-size: 15px;
+    font-size: 18px;
 
     li {
         background-color: black;
