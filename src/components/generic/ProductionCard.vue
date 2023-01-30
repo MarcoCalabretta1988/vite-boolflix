@@ -49,8 +49,8 @@ export default {
             <img v-if="item.poster_path" :src="`https://image.tmdb.org/t/p/w342${item.poster_path}`" :alt="item.title"
                 class="img-fluid">
             <div v-else class="text-center noimg">
-                <div class="show-name m-2">{{ item.title || item.name }}</div>
-                <img src="../../assets/img/noimg.png" :alt="item.title" class="img-fluid my-3">
+                <div class="show-name">{{ item.title || item.name }}</div>
+                <img src="../../assets/img/noimg.png" :alt="item.title" class="img-fluid">
             </div>
 
         </div>
@@ -96,9 +96,10 @@ export default {
     }
 
     .show-name {
-        background-color: white;
+        background-color: black;
+        color: red;
         font-size: 20px;
-        height: 50px;
+        height: 10%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -115,6 +116,7 @@ export default {
 
     .noimg {
         background-color: black;
+        height: 91%;
     }
 }
 
