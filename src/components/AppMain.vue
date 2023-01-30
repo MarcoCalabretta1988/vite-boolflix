@@ -1,10 +1,11 @@
 <script>
 import { store } from '../data/store'
-import ProductionCard from './generic/ProductionCard.vue'
+
+import ProductionSection from './generic/ProductionSection.vue';
 
 export default {
     name: 'AppMain',
-    components: { ProductionCard },
+    components: { ProductionSection },
     data: () => ({ store }),
     props: {
         searchTerm: String,
@@ -21,27 +22,18 @@ export default {
         <div v-else-if="store.movies.length === 0 && store.tvSeries.length === 0"
             class="text-white text-center m-5 p-5">
             <h1 class="text-white text-center m-5 p-5">
-                <font-awesome-icon icon="fa-solid fa-face-sad-tear" /> nessun
+                <font-awesome-icon icon="fa-solid fa-face-sad-tear" class="fa-fade fa-2xl" /> nessun
                 risultato
             </h1>
         </div>
         <div v-else>
 
             <!-- FILM SECTION -->
-            <section id="film-section" class="container my-5">
-                <h1 class="text-center text-white">FILM:</h1>
-                <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3 flex-wrap " id="film-board">
-                    <production-card v-for="movie in store.movies" @key="movie.id" :item="movie"></production-card>
-                </div>
-            </section>
+            <production-section title="FILM" collection="movies"></production-section>
 
             <!-- SERIES SECTION -->
-            <section id="tvseries-section" class="container ">
-                <h1 class="text-center text-white">SERIE:</h1>
-                <div class="row row-cols-2 row-cols-lg-4 g-2 g-lg-3  flex-wrap " id="tv-board">
-                    <production-card v-for="serie in store.tvSeries" @key="serie.id" :item="serie"></production-card>
-                </div>
-            </section>
+            <production-section title="SERIE" collection="tvSeries"></production-section>
+
         </div>
     </main>
 </template>

@@ -9,7 +9,7 @@ export default {
 
     <div class="loader">
         <div class=" loader-content text-center">
-            <font-awesome-icon icon="fa-solid fa-spinner fa-spin" />
+            <font-awesome-icon icon="fa-solid fa-spinner" class="fa-spin fa-2xl" />
             <h1>Loading...</h1>
         </div>
     </div>

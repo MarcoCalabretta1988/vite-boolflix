@@ -83,6 +83,7 @@ export default {
 }
 
 .poster {
+
     position: absolute;
     top: 0;
     left: 0;

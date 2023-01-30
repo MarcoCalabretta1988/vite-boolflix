@@ -31,6 +31,7 @@ header {
         color: red;
         font-size: 80px;
         font-weight: bolder;
+        cursor: pointer;
     }
 }
 </style>
